@@ -1,0 +1,7 @@
+/.metadata/
+
+*.class
+/Client/.settings/
+*.project
+*.classpath
+/Server/.settings/
