@@ -2,7 +2,6 @@ import java.rmi.RemoteException;
 
 public class Oczko implements Game
 {
-
 	@Override
 	public int getId() throws RemoteException {
 		// TODO Auto-generated method stub

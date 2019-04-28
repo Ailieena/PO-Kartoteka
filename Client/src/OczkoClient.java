@@ -6,27 +6,36 @@ public class OczkoClient extends UnicastRemoteObject implements GameClientInterf
 {
 	Game game;
 	String clientName;
+	boolean myTurn;
 	OczkoClient(Game g, String i) throws RemoteException
 	{
 		game = g;
 		clientName = i;
 		g.join(this);
+		myTurn = false;
+	}
+	
+	@Override
+	public void notify(String s) throws RemoteException 
+	{
+		System.out.println(s);
+	}
+	@Override
+	public String getId() throws RemoteException 
+	{
+		return clientName;
+	}
+	public void myTurn()
+	{
+		
+		
 	}
 
 	@Override
-	public void notify(String s) throws RemoteException {
-		// TODO Auto-generated method stub
+	public void play() throws RemoteException 
+	{
+		
 		
 	}
-	@Override
-	public String getId() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void play() throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }
