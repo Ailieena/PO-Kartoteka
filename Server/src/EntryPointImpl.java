@@ -27,12 +27,25 @@ public class EntryPointImpl extends UnicastRemoteObject
 		
 	}
 	@Override
-	public int create() throws RemoteException {		
-		DummyGame r = new DummyGame();
+	public int create(int type) throws RemoteException {	
+		// ---- poprawiæ
+		Game r;
+		if(type == 0)
+		{
+			r = new DummyGame();
+		}
+		else if(type == 1)
+		{
+			r = new Oczko();
+		}
+		else
+		{
+			return -1; 
+		}
 		games.add(r);
 		try {
 			Naming.rebind("rmi://localhost:1900"+ 
-			        "/game"+ r.id, r);
+			        "/game"+ r.getId(), r);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} 

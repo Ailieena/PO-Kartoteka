@@ -5,10 +5,9 @@ import java.util.Scanner;
 
 public class DummyGame extends UnicastRemoteObject implements Game
 {
-	DummyGameClientInterface[] clients = new DummyGameClientInterface[3];
+	GameClientInterface[] clients = new GameClientInterface[3];
 	int clientCount = 0;
 	int id;
-	int[] cards = new int[52];
 	int i = 0;
 	String gameName = "dummyGame";
 	DummyGame() throws RemoteException
@@ -25,7 +24,7 @@ public class DummyGame extends UnicastRemoteObject implements Game
 		return 0;
 	}
 	@Override
-	public void join(DummyGameClientInterface client) throws RemoteException {
+	public void join(GameClientInterface client) throws RemoteException {
 		if(clientCount >= 3)
 		{
 			client.notify("W pokoju jest ju¿ 3 graczy");
@@ -41,7 +40,7 @@ public class DummyGame extends UnicastRemoteObject implements Game
 	public void play() throws RemoteException {
 		
 	}
-	public int getCard(DummyGameClientInterface dummyGame) throws RemoteException
+	public int getCard(GameClientInterface dummyGame) throws RemoteException
 	{
 		if(i > 52)
 		{

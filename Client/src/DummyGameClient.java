@@ -5,7 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
-public class DummyGameClient extends UnicastRemoteObject implements DummyGameClientInterface
+public class DummyGameClient extends UnicastRemoteObject implements GameClientInterface
 {
 	Game game;
 	String clientName;

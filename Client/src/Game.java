@@ -6,9 +6,9 @@ public interface Game extends Remote
 {
 	public int getId() throws RemoteException;
 	public int getGameType() throws RemoteException;
-	void join(DummyGameClientInterface client) throws RemoteException;
+	void join(GameClientInterface client) throws RemoteException;
 	void play() throws RemoteException;
-	int getCard(DummyGameClientInterface dummyGame) throws RemoteException;
+	int getCard(GameClientInterface game) throws RemoteException;
 	boolean gameOver() throws RemoteException;
 	boolean hasMaxPlayers() throws RemoteException;
 }

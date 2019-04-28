@@ -39,7 +39,7 @@ public class EntryPointClient {
     	    		System.out.println("wybierz w któr¹ grê chcesz graæ: ");
     	    		System.out.println(access.getTypeOfGames());
     	    		int type = s.nextInt();
-    	    		int id = access.create();
+    	    		int id = access.create(type);
     	    		System.out.println("Twoja gra ma id : " + id);
     	    		join(id);
     	
