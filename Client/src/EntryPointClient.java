@@ -1,16 +1,30 @@
+import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.Scanner;
 
 public class EntryPointClient {
-
+	EntryPoint access;
+	String login;
+	public void join(int id) throws RemoteException, MalformedURLException, NotBoundException
+	{
+		Game game = (Game)Naming.lookup("rmi://localhost:1900"+ 
+                "/game"+id); 
+		DummyGameClient gameClient;
+		gameClient = new DummyGameClient(game, login);
+		gameClient.play();
+		access.delteGame(id);
+		
+	}
+	
 	public void run()
 	{
-		Scanner s = new Scanner(System.in);
-        String login; 
+		Scanner s = new Scanner(System.in); 
         try
         { 
             // lookup method to find reference of remote object 
-            EntryPoint access = 
+            access = 
                 (EntryPoint)Naming.lookup("rmi://localhost:1900"+ 
                                       "/start"); 
             System.out.println("Podaj login: ");
@@ -18,11 +32,14 @@ public class EntryPointClient {
             String operation;
         	while(true)
         	{
-        		System.out.println("PODAJ KOMENDE: ");
+        		System.out.println("PODAJ KOMENDÊ: ");
     	    	operation = s.nextLine();
     	    	if(operation.equals("CREATE"))
     	    	{
-    	    		access.create();
+    	    		int id = access.create();
+    	    		System.out.println("Twoja gra ma id : " + id);
+    	    		join(id);
+    	
     	    	}
     	    	else if(operation.equals("LIST"))
     	    	{
@@ -30,21 +47,17 @@ public class EntryPointClient {
     	    	}
     	    	else if(operation.equals("JOIN"))
     	    	{
+    	    		System.out.println("WYBIERZ Z POKOI: ");
+    	    		System.out.println(access.list(" "));
     	    		int id = s.nextInt();
-    	    		while(true)
+    	    		if(access.getGame(id))
+	    	    	{
+	    	    		join(id);
+    	    		}
+    	    		else
     	    		{
-	    	    		if(access.getGame(id))
-	    	    		{
-		    	    		Game game = (Game)Naming.lookup("rmi://localhost:1900"+ 
-		    	                                          "/game"+id); 
-		    	    		DummyGameClient gameClient = new DummyGameClient(game, login);
-		    	    		gameClient.play();
-		    	    		break;
-	    	    		}
-	    	    		else
-	    	    		{
-	    	    			System.out.println("gra nie istnieje");
-	    	    		}
+    	    			System.out.println("gra nie istnieje");
+    	
     	    		}
     	    	}
     	    	else

@@ -11,8 +11,6 @@ public class SearchServer
             LocateRegistry.createRegistry(1900);  
             Naming.rebind("rmi://localhost:1900"+ 
                           "/start",obj); 
-            
-            
         } 
         catch(Exception ae) 
         { 

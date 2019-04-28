@@ -39,13 +39,13 @@ public class DummyGame extends UnicastRemoteObject implements Game
 	}
 	public int getCard(DummyGameClientInterface dummyGame) throws RemoteException
 	{
-		if(i >= 52)
+		if(i > 52)
 		{
 			notifyAll("Koniec talii");
 			return -1;
 		}
 		System.out.println(dummyGame.getId() + " poprosil o karte");
-		notifyAllBut("Ktoœ dota³ kartê "+ i, dummyGame.getId());
+		notifyAllBut( dummyGame.getId() + " dosta³ kartê " + i, dummyGame.getId());
 		return i++;
 	}
 	public void notifyAll(String s) throws RemoteException
@@ -57,10 +57,10 @@ public class DummyGame extends UnicastRemoteObject implements Game
 	}
 	public void notifyAllBut(String s, String id) throws RemoteException
 	{
-		System.out.println("No notify to " + id);
+		//System.out.println("No notify to " + id);
 		for(int i = 0; i < clientCount; i++)
 		{
-			System.out.println("notify do" + clients[i].getId());
+			//System.out.println("notify do " + clients[i].getId());
 			if(!clients[i].getId().equals(id))
 				clients[i].notify(s);
 		}
@@ -68,7 +68,16 @@ public class DummyGame extends UnicastRemoteObject implements Game
 	
 	public boolean gameOver()
 	{
-		if(i >= 52)
+		if(i > 52)
+		{
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public boolean hasMaxPlayers() throws RemoteException
+	{
+		if(clientCount >= 3)
 		{
 			return true;
 		}

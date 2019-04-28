@@ -15,18 +15,17 @@ public class EntryPointImpl extends UnicastRemoteObject
         super(); 
         games = new ArrayList<Game>();
     } 
-
 	@Override
-	public void create() throws RemoteException {
+	public int create() throws RemoteException {		
 		DummyGame r = new DummyGame();
 		games.add(r);
 		try {
 			Naming.rebind("rmi://localhost:1900"+ 
 			        "/game"+ r.id, r);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
+		return r.getId();
 		
 	}
 
@@ -41,8 +40,8 @@ public class EntryPointImpl extends UnicastRemoteObject
 		Iterator<Game> it = games.iterator();
 		while(it.hasNext())
 		{
-			DummyGame r = (DummyGame) it.next();
-			if(r.id == id)
+			Game r = it.next();
+			if(r.getId() == id)
 			{
 				return true;
 			}
@@ -56,12 +55,30 @@ public class EntryPointImpl extends UnicastRemoteObject
 		List<Integer> ids = new ArrayList<Integer>();
 		while(it.hasNext())
 		{
-			DummyGame r = (DummyGame) it.next();
-			ids.add(r.id);
-			System.out.println(r.gameName + " " + r.id);
+			Game r = it.next();
+			if(!r.gameOver() && !r.hasMaxPlayers())
+				ids.add(r.getId());
 		}
-		
-		
 		return ids;
+	}
+
+	@Override
+	public void delteGame(int id) throws RemoteException 
+	{
+		for(int i = 0; i < games.size(); i++)
+		{
+			if(games.get(i).getId() == id)
+			{
+				games.remove(i);
+				try {
+					Naming.unbind("rmi://localhost:1900"+ 
+					        "/game"+ id);
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				} catch (NotBoundException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	} 
 } 

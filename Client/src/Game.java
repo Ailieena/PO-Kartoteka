@@ -9,4 +9,5 @@ public interface Game extends Remote
 	void play() throws RemoteException;
 	int getCard(DummyGameClientInterface dummyGame) throws RemoteException;
 	boolean gameOver() throws RemoteException;
+	boolean hasMaxPlayers() throws RemoteException;
 }

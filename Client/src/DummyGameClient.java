@@ -19,18 +19,18 @@ public class DummyGameClient extends UnicastRemoteObject implements DummyGameCli
 	
 	public void play() throws RemoteException 
 	{
-			while(!game.gameOver())
+		while(!game.gameOver())
+		{
+			int c = s.nextInt();
+			if(c == -1)
 			{
-				int c = s.nextInt();
-				if(c == 0)
-				{
-					return;
-				}
-				int card = game.getCard(this);
-				System.out.println("Otzymalam karte o numerze: "+ card);
-				
+				return;
 			}
-			System.out.println("Koniec talii");
+			int card = game.getCard(this);
+			System.out.println("Otzymalam karte o numerze: "+ card);
+			
+		}
+		System.out.println("Koniec gry");
 	}
 	public void notify(String s) throws RemoteException
 	{
