@@ -36,6 +36,9 @@ public class EntryPointClient {
     	    	operation = s.nextLine();
     	    	if(operation.equals("CREATE"))
     	    	{
+    	    		System.out.println("wybierz w któr¹ grê chcesz graæ: ");
+    	    		System.out.println(access.getTypeOfGames());
+    	    		int type = s.nextInt();
     	    		int id = access.create();
     	    		System.out.println("Twoja gra ma id : " + id);
     	    		join(id);
@@ -57,7 +60,6 @@ public class EntryPointClient {
     	    		else
     	    		{
     	    			System.out.println("gra nie istnieje");
-    	
     	    		}
     	    	}
     	    	else

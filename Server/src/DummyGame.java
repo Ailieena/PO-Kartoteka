@@ -20,6 +20,10 @@ public class DummyGame extends UnicastRemoteObject implements Game
 	{
 		return id;
 	}
+	public int getGameType() throws RemoteException
+	{
+		return 0;
+	}
 	@Override
 	public void join(DummyGameClientInterface client) throws RemoteException {
 		if(clientCount >= 3)

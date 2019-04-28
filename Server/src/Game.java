@@ -6,6 +6,7 @@ public interface Game extends Remote
 {
 	//serwer
 	public int getId() throws RemoteException;
+	public int getGameType() throws RemoteException;
 	void join(DummyGameClientInterface client) throws RemoteException;
 	void play() throws RemoteException;
 	int getCard(DummyGameClientInterface dummyGame) throws RemoteException;

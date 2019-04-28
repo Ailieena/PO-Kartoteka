@@ -4,17 +4,28 @@ import java.util.Random;
 
 import java.rmi.server.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List; 
+import java.util.List;
+import java.util.Map; 
 public class EntryPointImpl extends UnicastRemoteObject 
                          implements EntryPoint 
 { 
+	Map<Integer, String> gameTypes;
 	List<Game> games;
 	EntryPointImpl() throws RemoteException 
     { 
         super(); 
         games = new ArrayList<Game>();
+        gameTypes = new HashMap<Integer, String>();
+        gameTypes.put(0, "DummyGame");
+        gameTypes.put(1, "Oczko");
     } 
+	public Map<Integer, String> getTypeOfGames()
+	{
+		return gameTypes;
+		
+	}
 	@Override
 	public int create() throws RemoteException {		
 		DummyGame r = new DummyGame();
