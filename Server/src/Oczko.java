@@ -83,10 +83,12 @@ public class Oczko extends UnicastRemoteObject implements Game
 			if(gracze[j%clientCount].isPlaying())
 			{
 				currentPlayer = j%clientCount;
+				break;
 			}
 		}
+		System.out.println("tura gracza " + clients[currentPlayer].getId());
 		clients[currentPlayer].myTurn();
-		
+		 
 		if(gameOver())
 		{
 			System.out.println("gameOver");

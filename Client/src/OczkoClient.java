@@ -38,6 +38,7 @@ public class OczkoClient extends UnicastRemoteObject implements GameClientInterf
 	@Override
 	public void play() throws RemoteException 
 	{
+		//System.out.println(myTurn);
 		while(true)
 		{
 			//System.out.println(myTurn);
