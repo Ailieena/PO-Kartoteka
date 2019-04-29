@@ -1,10 +1,11 @@
 
-public class GraczOczko {
+public class GraczOczko 
+{
 
 	int points;
 	boolean isPlaying;
-	OczkoClientInterface client;
-	GraczOczko(OczkoClientInterface c)
+	GameClientInterface client;
+	GraczOczko(GameClientInterface c)
 	{
 		client = c;
 		points = 0;
@@ -21,5 +22,9 @@ public class GraczOczko {
 	void addPoints(int p)
 	{
 		points+=p;
+	}
+	void setNotPlaying()
+	{
+		isPlaying = false;
 	}
 }

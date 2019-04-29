@@ -37,7 +37,8 @@ public class DummyGame extends UnicastRemoteObject implements Game
 	Scanner s = new Scanner(System.in);
 	
 	@Override
-	public void play() throws RemoteException {
+	public void play(GameClientInterface dummyGame) throws RemoteException 
+	{
 		
 	}
 	public int getCard(GameClientInterface dummyGame) throws RemoteException
@@ -85,6 +86,11 @@ public class DummyGame extends UnicastRemoteObject implements Game
 			return true;
 		}
 		return false;
+	}
+	@Override
+	public void passTurn(GameClientInterface player) throws RemoteException {
+		// TODO Auto-generated method stub
+		
 	}
 
 

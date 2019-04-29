@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -47,6 +44,10 @@ public class TaliaOczko
 	}
 	int getCard()
 	{
+		if(size == 0)
+		{
+			return -1;
+		}
 		Random k = new Random();
 		int i = k.nextInt(size);
 		int val = cards.get(i);

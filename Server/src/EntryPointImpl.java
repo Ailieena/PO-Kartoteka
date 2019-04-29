@@ -80,7 +80,7 @@ public class EntryPointImpl extends UnicastRemoteObject
 		while(it.hasNext())
 		{
 			Game r = it.next();
-			if(!r.gameOver() && !r.hasMaxPlayers())
+			if(!r.hasMaxPlayers())
 				ids.add(r.getId());
 		}
 		return ids;

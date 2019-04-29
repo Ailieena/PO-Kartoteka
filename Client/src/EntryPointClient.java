@@ -11,8 +11,15 @@ public class EntryPointClient {
 	{
 		Game game = (Game)Naming.lookup("rmi://localhost:1900"+ 
                 "/game"+id); 
-		DummyGameClient gameClient;
-		gameClient = new DummyGameClient(game, login);
+		GameClientInterface gameClient;
+		if(game.getGameType() == 0)
+		{
+			gameClient = new DummyGameClient(game, login);
+		}
+		else
+		{
+			gameClient = new OczkoClient(game, login);
+		}
 		gameClient.play();
 		access.delteGame(id);
 		
@@ -42,7 +49,6 @@ public class EntryPointClient {
     	    		int id = access.create(type);
     	    		System.out.println("Twoja gra ma id : " + id);
     	    		join(id);
-    	
     	    	}
     	    	else if(operation.equals("LIST"))
     	    	{

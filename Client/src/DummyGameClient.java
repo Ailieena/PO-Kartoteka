@@ -41,5 +41,10 @@ public class DummyGameClient extends UnicastRemoteObject implements GameClientIn
 		
 		return clientName;
 	}
+	@Override
+	public void myTurn() throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
