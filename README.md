@@ -1,14 +1,22 @@
-**Projekt PO – wersja pierwsza**
+**Projekt PO – wersja druga**
+
+
+**GUI -**
+Przydatne linki:
+
+[Design Patterns in Game Programming](https://www.gamasutra.com/blogs/MichaelHaney/20110920/90250/Design_Patterns_in_Game_Programming.php?fbclid=IwAR3U8xj0kkm1s_zLLwW_Rep8W3T-1gujNPuHyOCLGDNCRXjMwpNjkLGkZk4)
+
+[State](https://www.gameprogrammingpatterns.com/state.html?fbclid=IwAR326fHs-0wjTJDHKxuFs0mDCUmHGt5IQigDDAQ61Qe1BjwITOjsWO6Vj9o)
+
+
 
 Potem możemy rozszerzyć projekt o:
 
-    •	GUI
     •	Prywatne pokoje
     •	Rejestrowanie użytkowników
     •	Ranking
     •	Przywracanie użytkownika do gry po przerwanym połączeniu
     •	Dodatkowe gry
-  
 
 Serwer wystawia metody do dołączania/tworzenia pokoi
 Całość opiera się na RMI
