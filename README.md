@@ -8,6 +8,26 @@ Przydatne linki:
 
 [State](https://www.gameprogrammingpatterns.com/state.html?fbclid=IwAR326fHs-0wjTJDHKxuFs0mDCUmHGt5IQigDDAQ61Qe1BjwITOjsWO6Vj9o)
 
+Jak ja to widzę:
+
+   * Prośba o login -> przejście do menu
+   * Po wejściu do menu są 2 opcje:
+   
+    1) Dołącz do gry
+    2) Stwórz nową grę
+
+   * Po kliknięciu 1) dostajesz listę otwartych pokoi ( wraz z ich numerami ) oraz tego jakie gry będą rozgrywane w danym pokoju i oczywiście można dany pokój wybrać i wejść do gry
+   * Po kliknięciu 2) dostajemy listę możliwych typów gry -> wybieramy jedną -> wrzuca nas do tej gry
+    
+    
+**Sama gra:**
+
+   * Gdzieś w rogu podany numer gry który można podać np. jak chcesz dołączyć do gry do kolegi
+   * Nie możemy przesuwać kartami które posiadamy, mają ustalone miejsce gdzieś na dole ekranu
+   * Karta którą dostajemy pojawia się na środku ekranu - dostajemy wtedy dwie opcje - pass albo wzięcie karty (wydaje mi się że dwa guziki w zupełności wystarczą) 
+   * Miło by było żeby był gdzieś licznik tego ile klient ma punktów
+    
+
 
 
 Potem możemy rozszerzyć projekt o:
