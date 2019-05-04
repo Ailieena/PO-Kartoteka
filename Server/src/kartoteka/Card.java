@@ -3,6 +3,7 @@ package kartoteka;
 public class Card {
     int value;
     int color;
+
     Enumeration enumeration;
 
     public Card() {
@@ -26,15 +27,29 @@ public class Card {
         return new Card(this.value, this.color);
     }
 
-    public int compareTo(Card card) {
-        return this.value - card.value;
+    public int compareTo(Card c) {
+        return this.value - c.value;
+    }
+
+    public String getValue() {
+        return enumeration.getValue(value);
+    }
+
+    public String getColor() {
+        return enumeration.getColor(color);
     }
 
     public String toString() {
-        return enumeration.values.get(this.value) + " " + enumeration.colors.get(this.color);
+        return getValue() + " " + getColor();
     }
 
     public static int compareValues(Card first, Card second) {
         return first.value - second.value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Card)) return false;
+        return (this.value == ((Card) o).value && this.color == ((Card) o).color);
     }
 }

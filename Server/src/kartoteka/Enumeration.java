@@ -2,7 +2,7 @@ package kartoteka;
 
 import java.util.HashMap;
 
-public class Enumeration {
-    HashMap<Integer, String> values;
-    HashMap<Integer, String> colors;
+public abstract class Enumeration {
+    public abstract String getValue(int value);
+    public abstract String getColor(int color);
 }

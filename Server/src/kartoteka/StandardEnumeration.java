@@ -4,6 +4,9 @@ import java.util.HashMap;
 
 public class StandardEnumeration extends Enumeration {
 
+    HashMap<Integer, String> values;
+    HashMap<Integer, String> colors;
+
 
     public StandardEnumeration() {
 
@@ -28,5 +31,15 @@ public class StandardEnumeration extends Enumeration {
         values.put(10, "Dama");
         values.put(11, "Król");
         values.put(12, "As");
+    }
+
+    @Override
+    public String getValue(int value) {
+        return values.get(value);
+    }
+
+    @Override
+    public String getColor(int color) {
+        return colors.get(color);
     }
 }
