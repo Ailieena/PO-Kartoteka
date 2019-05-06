@@ -2,6 +2,10 @@
 
 *.class
 /Client/.settings/
+/Client/Client.iml
 *.project
 *.classpath
 /Server/.settings/
+/Server/Server.iml
+/.idea/
+/out/
