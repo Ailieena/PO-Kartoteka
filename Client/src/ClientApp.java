@@ -30,6 +30,8 @@ class Card {
     static double cardHeight = 100;
     private static Image back = new Image("assets/Backs/Card-Back-01.png", cardHeight, cardHeight, true, true);
     static double cardWidth = back.getWidth();
+    static double cardOverlapH = -2*cardWidth/3;
+    static double cardOverlapV = -cardHeight+cardWidth/3;
     private Image front;
     private Suit suit;
     private int value;
@@ -56,6 +58,17 @@ class Card {
         return front;
     }
 
+    public static ArrayList<Card> createDeck(int lowest) {
+        ArrayList<Card> deck = new ArrayList<>();
+        for(Suit suit : Suit.values()) {
+            for(int i=lowest; i<=13; i++) {
+                deck.add(new Card(i, suit));
+            }
+            deck.add(new Card(1, suit));
+        }
+        return deck;
+    }
+
     @Override
     public String toString() {
         String figure;
@@ -69,24 +82,78 @@ class Card {
 
 class Hand {
     private ArrayList<Card> cards;
+    private Pane assignedContainer;
     private boolean visible;
+    private boolean rotated;
+    private boolean clickable;
+    private ArrayList<Hand> hands;
+
+    public Hand(Pane container, boolean visible, boolean clickable) {
+        this.visible = visible;
+        this.clickable = clickable;
+        this.cards = new ArrayList<Card>();
+        this.assignedContainer = container;
+        if(container instanceof VBox) {
+            this.rotated = true;
+            ((VBox)this.assignedContainer).setSpacing(Card.cardOverlapV);
+            ((VBox)this.assignedContainer).setAlignment(Pos.CENTER);
+        }
+        if(container instanceof HBox) {
+            this.rotated = false;
+            ((HBox)this.assignedContainer).setSpacing(Card.cardOverlapH);
+            ((HBox)this.assignedContainer).setAlignment(Pos.CENTER);
+        }
+    }
+
+    private void clickHandler(Card evokedCard) {
+        if(ClientApp.currentHand != this.hands.indexOf(this)) return;
+        if(this.hands.get(4).cards.size() == 4) {
+            this.hands.get(4).clear();
+        }
+        this.removeCard(evokedCard);
+        this.hands.get(4).addCard(evokedCard);
+        ClientApp.currentHand = (ClientApp.currentHand+1)%4;
+    }
+
+    private void updateContainer() {
+        assignedContainer.getChildren().clear();
+        for(Card card : cards) {
+            Image _img = (visible ? card.getFront() : card.getBack());
+            ImageView img = new ImageView(_img);
+            if(rotated) img.setRotate(90);
+            if(clickable) img.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+                clickHandler(card);
+                mouseEvent.consume();
+            });
+            assignedContainer.getChildren().add(img);
+        }
+    }
+
+    public void setHands(ArrayList<Hand> hands) {
+        this.hands = hands;
+    }
 
     public void addCard(Card card) {
         cards.add(card);
+        updateContainer();
     }
 
     public void removeCard(Card card) {
         cards.remove(card);
+        updateContainer();
     }
 
-    public Hand(boolean visible, Card... cards) {
-        this.visible = visible;
-        this.cards = new ArrayList<>(Arrays.asList(cards));
+    public void drawCards(List<Card> deck, int n) {
+        while(deck.size() > 0 && n > 0) {
+            cards.add(deck.remove(0));
+            n--;
+        }
+        updateContainer();
     }
 
-    public Hand(boolean visible, List<Card> cards) {
-        this.visible = visible;
-        this.cards = new ArrayList<>(cards);
+    public void clear() {
+        cards.clear();
+        updateContainer();
     }
 
     public boolean isVisible() {
@@ -102,37 +169,11 @@ class Hand {
 public class ClientApp extends Application {
     static int windowWidth = 800;
     static int windowHeight = 600;
-    private HBox tableDeck;
-    static ArrayList<Card> cards = new ArrayList<>();
-    static {
-        for(int i=1; i<=13; i++) {
-            cards.add(new Card(i, Suit.Clubs));
-            cards.add(new Card(i, Suit.Diamonds));
-            cards.add(new Card(i, Suit.Hearts));
-            cards.add(new Card(i, Suit.Spades));
-        }
-    }
+    static int currentHand = 0;
 
-    private void dealCards(HBox me, HBox opponent) {
-
-        Collections.shuffle(cards);
-        HBox[] t = {me, opponent};
-        for(int k=0; k<2; k++) {
-            HBox box = t[k];
-            for(int i=0; i<13; i++) {
-                Card card = cards.get(13*k+i);
-                ImageView img = new ImageView(card.getFront());
-                img.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                    if(img.getParent().equals(this.tableDeck)) return;
-                    System.out.println(card);
-                    if(this.tableDeck.getChildren().size() == 2) this.tableDeck.getChildren().clear();
-                    box.getChildren().remove(img);
-                    this.tableDeck.getChildren().add(img);
-                    event.consume();
-                });
-                box.getChildren().add(img);
-            }
-        }
+    private void dealCards(ArrayList<Hand> hands, ArrayList<Card> deck, int n) {
+        Collections.shuffle(deck);
+        for(Hand hand : hands) hand.drawCards(deck, n);
     }
 
     @FXML
@@ -153,19 +194,17 @@ public class ClientApp extends Application {
         AnchorPane sideBar = (AnchorPane) windowContent.getChildren().get(1);
         ObservableList<Node> buttons = sideBar.getChildren();
 
-        HBox myDeck = (HBox) table.getChildren().get(3);
-        myDeck.setSpacing(-48);
-        myDeck.setAlignment(Pos.CENTER);
+        Hand myHand = new Hand((HBox) table.getChildren().get(3), true, true);
+        Hand leftHand = new Hand((VBox) table.getChildren().get(1), false, true);
+        Hand rightHand = new Hand((VBox) table.getChildren().get(2), true, true);
+        Hand topHand = new Hand((HBox) table.getChildren().get(0), true, true);
+        Hand tableHand = new Hand((HBox) table.getChildren().get(4), true, false);
+        ArrayList<Hand> hands = new ArrayList<Hand>(Arrays.asList(myHand, leftHand, topHand, rightHand, tableHand));
+        for(Hand hand : hands) hand.setHands(hands);
 
-        HBox opponentDeck = (HBox) table.getChildren().get(0);
-        opponentDeck.setSpacing(-48);
-        opponentDeck.setAlignment(Pos.CENTER);
 
-        tableDeck = (HBox) table.getChildren().get(4);
-        tableDeck.setAlignment(Pos.CENTER);
-
-        dealCards(myDeck, opponentDeck);
-
+        ArrayList<Card> deck = Card.createDeck(2);
+        dealCards(hands, deck, 13);
 
         primaryStage.show();
     }
