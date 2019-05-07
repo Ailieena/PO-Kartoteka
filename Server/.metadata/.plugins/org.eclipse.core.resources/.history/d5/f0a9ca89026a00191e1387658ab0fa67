@@ -1,0 +1,10 @@
+
+public class GraczOczko {
+
+	int points;
+	OczkoClientInterface client;
+	GraczOczko()
+	{
+		
+	}
+}

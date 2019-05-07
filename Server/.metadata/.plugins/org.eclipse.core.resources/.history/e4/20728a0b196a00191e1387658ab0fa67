@@ -1,0 +1,65 @@
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Random;
+import java.util.Scanner;
+
+public class OczkoClient extends UnicastRemoteObject implements GameClientInterface
+{
+	Scanner s;
+	Game game;
+	String clientName;
+	boolean myTurn;
+	OczkoClient(Game g, String i) throws RemoteException
+	{
+		s = new Scanner(System.in); 
+		game = g;
+		clientName = i;
+		g.join(this);
+		myTurn = false;
+	}
+	
+	@Override
+	public void notify(String s) throws RemoteException 
+	{
+		System.out.println(s);
+	}
+	@Override
+	public String getId() throws RemoteException 
+	{
+		return clientName;
+	}
+	public void myTurn()
+	{
+		System.out.println("Twoja tura!");
+		myTurn = true;		
+	}
+	
+	@Override
+	public void play() throws RemoteException 
+	{
+		System.out.println("Gramy!");
+		while(true)
+		{
+			//System.out.println(myTurn);
+			if(myTurn)
+			{
+				
+				System.out.println("Czy checz zachowaæ kartê "+ game.getCard(this) + " ? Y\\N");
+				String c = s.next();
+				if(c.equals("Y"))
+				{
+					game.play(this);
+				}
+				else
+				{
+					game.passTurn(this);
+				}
+				System.out.println("skonczyla sie twoja tura");
+				myTurn = false;
+			}
+			
+		}
+		
+	}
+	
+}

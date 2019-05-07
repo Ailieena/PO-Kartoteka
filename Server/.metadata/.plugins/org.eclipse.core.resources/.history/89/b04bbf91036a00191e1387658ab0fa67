@@ -1,0 +1,57 @@
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Random;
+
+public class OczkoClient extends UnicastRemoteObject implements Game
+{
+	Game game;
+	String clientName;
+	OczkoClient(Game g, String i) throws RemoteException
+	{
+		game = g;
+		clientName = i;
+		g.join(this);
+	}
+
+	@Override
+	public int getId() throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getGameType() throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void play() throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean gameOver() throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasMaxPlayers() throws RemoteException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void join(GameClientInterface client) throws RemoteException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getCard(GameClientInterface game) throws RemoteException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}
