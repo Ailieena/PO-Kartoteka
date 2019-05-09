@@ -1,6 +1,5 @@
 import gui.Login;
 import gui.Menu;
-import gui.blackjack.OczkoGameScreen;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import lobby.EntryPoint;
@@ -24,9 +23,10 @@ public class Main extends Application {
 
         EntryPoint ep = (EntryPoint) Naming.lookup("rmi://localhost:1900"+
                 "/start");
-
+        
         Menu menu = new Menu(stage, ep);
         Login login = new Login(stage, menu);
+        
         stage.setScene(login.getScene());
         stage.setTitle(title);
         stage.show();

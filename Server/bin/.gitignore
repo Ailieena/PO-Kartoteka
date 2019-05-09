@@ -1,6 +1,5 @@
-/DummyGame.class
-/DummyGameClientInterface.class
-/EntryPoint.class
-/EntryPointImpl.class
-/Game.class
-/SearchServer.class
+/GameServer.class
+/dummy/
+/game/
+/lobby/
+/oczko/

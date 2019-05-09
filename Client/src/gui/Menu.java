@@ -1,6 +1,4 @@
 package gui;
-
-import gui.blackjack.OczkoGameScreen;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -58,8 +56,10 @@ public class Menu implements CustomScene {
         System.out.println("Joining " + roomNo);
         OczkoGame game = (OczkoGame) Naming.lookup("rmi://localhost:1900" + "/game/" + roomNo);
 
+        /*   !!
         OczkoGameScreen gs = new OczkoGameScreen(game);
         stage.setScene(gs.getScene());
+        */// !!
     }
 
     private void loadRooms() {

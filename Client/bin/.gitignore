@@ -1,10 +1,1 @@
-/Client.class
-/ClientRequest.class
-/DummyGameClient.class
-/DummyGameClientInterface.class
-/EntryPoint.class
-/EntryPointClient.class
-/Game.class
-/test/
-/ClientApp.fxml
-/assets/
+/gui/
