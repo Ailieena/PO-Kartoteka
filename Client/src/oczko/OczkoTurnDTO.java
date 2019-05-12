@@ -3,7 +3,7 @@ package oczko;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class OczkoTurnDTO extends UnicastRemoteObject implements OczkoTurnDTOInterface {
+public class OczkoTurnDTO extends UnicastRemoteObject implements OczkoTurnDTOInterface{
     private int player;
     private OczkoAction action;
     private boolean myTurn;
