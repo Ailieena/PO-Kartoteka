@@ -1,6 +1,7 @@
 package oczko;
 
-import game.GameClient;
+import oczko.OczkoTurnDTOInterface;
+import remoteinterface.GameClient;
 
 import java.rmi.RemoteException;
 

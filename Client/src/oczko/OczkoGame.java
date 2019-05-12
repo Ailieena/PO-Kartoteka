@@ -1,13 +1,14 @@
 package oczko;
 
-import game.Game;
+import kartoteka.Card;
+import remoteinterface.Game;
 
 import java.rmi.RemoteException;
 
 public interface OczkoGame extends Game {
-    int getNumberOfPlayers() throws RemoteException;
+    int getMaxNumberOfPlayers() throws RemoteException;
 
-    String requestCard(int clientID) throws RemoteException;
+    Card requestCard(int clientID) throws RemoteException;
 
     void requestPass(int clientID) throws RemoteException;
 }
