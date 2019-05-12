@@ -1,6 +1,0 @@
-import java.rmi.server.UnicastRemoteObject;
-
-public class OczkoClient extends UnicastRemoteObject implements Game
-{
-
-}

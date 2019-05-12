@@ -1,8 +1,0 @@
-import java.rmi.Remote;
-import java.rmi.RemoteException;
-import java.util.Scanner;
-
-public interface DummyGameClientInterface extends Remote implements GameClientInterface
-{
-	
-}

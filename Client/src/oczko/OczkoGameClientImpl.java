@@ -10,7 +10,7 @@ public class OczkoGameClientImpl extends UnicastRemoteObject implements OczkoGam
 
     public OczkoGameClientImpl(Consumer<OczkoTurnDTOInterface> onNextTurn) throws RemoteException {
         super();
-         this.onNextTurn = onNextTurn;
+        this.onNextTurn = onNextTurn;
     }
 
     @Override
@@ -19,4 +19,8 @@ public class OczkoGameClientImpl extends UnicastRemoteObject implements OczkoGam
     }
 
 
+    @Override
+    public String getId() throws RemoteException {
+        return "1";
+    }
 }
