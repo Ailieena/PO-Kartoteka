@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #9acd32;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane fx:id="roomGrid" layoutX="200.0" layoutY="46.0">
         <columnConstraints>
@@ -14,6 +13,6 @@
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
       </GridPane>
-      <Button fx:id="newRoomBtn" layoutX="374.0" layoutY="361.0" mnemonicParsing="false" onAction="#createNewRoom" text="Nowy pokój" />
+      <Button fx:id="newRoomBtn" layoutX="250.0" layoutY="346.0" mnemonicParsing="false" onAction="#createNewRoom" text="Nowy pokój" />
    </children>
 </AnchorPane>
