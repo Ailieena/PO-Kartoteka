@@ -12,4 +12,6 @@ public interface ServerAPI extends Remote
 	public boolean getGame(int id) throws RemoteException; 
 	public void deleteGame(int id) throws RemoteException;
 	public Map<Integer, String> getTypeOfGames() throws RemoteException;
+
+	public int createPoker() throws RemoteException;
 } 

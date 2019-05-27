@@ -224,7 +224,7 @@ public class ClientApp extends Application {
     static int windowHeight = 600;
     static int currentHand = 0;
 
-    private Stage primaryStage;
+    Stage primaryStage;
 
     private final FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("LoginWindow.fxml"));
     private final FXMLLoader roomSelectorLoader = new FXMLLoader(getClass().getResource("SelectRoomWindow.fxml"));
@@ -436,6 +436,7 @@ public class ClientApp extends Application {
         primaryStage.setTitle("Kartoteka");
 
         if(loginScene == null) loginScene = new Scene(loginRoot);
+
         primaryStage.setScene(loginScene);
         primaryStage.show();
     }

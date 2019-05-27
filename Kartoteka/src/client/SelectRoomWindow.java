@@ -3,9 +3,14 @@ package client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import poker.Poker;
+import poker.PokerStage;
 import remoteinterface.ServerAPI;
 
 import java.io.IOException;
@@ -30,6 +35,19 @@ public class SelectRoomWindow {
     private void createNewRoom() throws RemoteException {
         server.create();
         loadRooms();
+    }
+
+    @FXML
+    private void joinPoker() throws RemoteException {
+        app.primaryStage.close();
+        Stage s = new Stage();
+        try {
+            s.setScene(new PokerStage().getScene());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        s.show();
+
     }
 
     public SelectRoomWindow(ClientApp app) {

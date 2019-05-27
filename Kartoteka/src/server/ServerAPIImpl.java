@@ -2,12 +2,14 @@ package server;
 
 import oczko.OczkoGame;
 import oczko.OczkoServerGame;
+import poker.Poker;
 import remoteinterface.ServerAPI;
 import remoteinterface.Game;
 
 import java.net.MalformedURLException;
 import java.rmi.*;
 
+import java.rmi.registry.LocateRegistry;
 import java.rmi.server.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,12 +30,29 @@ public class ServerAPIImpl extends UnicastRemoteObject
 
         gameTypes.put(1, "Oczko");
 
+
+		//////////////////////////////////////////
+
     } 
 	public Map<Integer, String> getTypeOfGames()
 	{
 		return gameTypes;
 		
 	}
+
+	@Override
+	public int createPoker() throws RemoteException {
+
+		try {
+			game.Game g = new Poker(5, 5, 10, 500);
+			Naming.rebind("rmi://localhost:1900/game_poker", g);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+
 	@Override
 	public int create() throws RemoteException {
 		OczkoGame og = new OczkoServerGame();
