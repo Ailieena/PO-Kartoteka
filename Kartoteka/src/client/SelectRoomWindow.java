@@ -22,6 +22,11 @@ public class SelectRoomWindow {
     private ServerAPI server;
 
     @FXML
+    private void exit() {
+        System.exit(0);
+    }
+
+    @FXML
     private void createNewRoom() throws RemoteException {
         server.create();
         loadRooms();

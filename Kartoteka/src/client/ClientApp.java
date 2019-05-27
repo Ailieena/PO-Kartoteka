@@ -233,7 +233,9 @@ public class ClientApp extends Application {
     private final LoginWindow loginWindow = new LoginWindow(this);
     private final SelectRoomWindow roomSelectorWindow = new SelectRoomWindow(this);
 
-
+    private Scene loginScene;
+    private Scene choiceScene;
+    private Scene gameScene;
     private ServerAPI server;
     private OczkoGame game;
     private OczkoGameClientImpl callbackClient;
@@ -270,7 +272,8 @@ public class ClientApp extends Application {
             game = null;
         }
 
-        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+//        ((Stage) (((Button) event.getSource()).getScene().getWindow())).close();
+        primaryStage.setScene(choiceScene);
     }
 
     public static void main(String[] args) {
@@ -291,19 +294,20 @@ public class ClientApp extends Application {
 
         clientID = game.join(callbackClient);
 
-        gameLoader.setController(this);
+        if(gameLoader.getController() != this) {
+            gameLoader.setController(this);
+            VBox root = gameLoader.load();
+            gameScene = new Scene(root);
+            HBox windowContent = (HBox) root.getChildren().get(0);
+            AnchorPane table = (AnchorPane) windowContent.getChildren().get(0);
+            AnchorPane sideBar = (AnchorPane) windowContent.getChildren().get(1);
 
-        VBox root = gameLoader.load();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        HBox windowContent = (HBox) root.getChildren().get(0);
-        AnchorPane table = (AnchorPane) windowContent.getChildren().get(0);
-        AnchorPane sideBar = (AnchorPane) windowContent.getChildren().get(1);
-
-        myHand = new Hand((HBox) table.getChildren().get(3), true, false);
-        leftHand = new Hand((VBox) table.getChildren().get(1), false, false);
-        rightHand = new Hand((VBox) table.getChildren().get(2), false, false);
-        topHand = new Hand((HBox) table.getChildren().get(0), false, false);
+            myHand = new Hand((HBox) table.getChildren().get(3), true, false);
+            leftHand = new Hand((VBox) table.getChildren().get(1), false, false);
+            rightHand = new Hand((VBox) table.getChildren().get(2), false, false);
+            topHand = new Hand((HBox) table.getChildren().get(0), false, false);
+        }
+        primaryStage.setScene(gameScene);
 
         int maxNumberOfPlayers = game.getMaxNumberOfPlayers();
 
@@ -320,7 +324,7 @@ public class ClientApp extends Application {
             availableHands.addAll(List.of(leftHand, topHand, rightHand));
         }
 
-        disableButtons();
+//        disableButtons();
 
     }
 
@@ -410,14 +414,17 @@ public class ClientApp extends Application {
 
     }
 
-
+    public void setServer(ServerAPI server) {
+        this.server = server;
+    }
 
     public void startRoomSelect() throws IOException {
         Parent roomSelect = roomSelectorLoader.load();
         roomSelectorWindow.setServer(server);
         roomSelectorWindow.loadRooms();
 
-        primaryStage.setScene(new Scene(roomSelect));
+        if(choiceScene == null) choiceScene = new Scene(roomSelect);
+        primaryStage.setScene(choiceScene);
         primaryStage.show();
 
     }
@@ -426,14 +433,13 @@ public class ClientApp extends Application {
         Parent loginRoot = loginLoader.load();
         primaryStage.setTitle("Kartoteka");
 
-        primaryStage.setScene(new Scene(loginRoot));
+        if(loginScene == null) loginScene = new Scene(loginRoot);
+        primaryStage.setScene(loginScene);
         primaryStage.show();
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        server = (ServerAPI) Naming.lookup("rmi://localhost:1900/start");
-
         this.primaryStage = primaryStage;
         startLogin();
     }
