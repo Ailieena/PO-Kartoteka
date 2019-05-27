@@ -237,6 +237,7 @@ public class ClientApp extends Application {
     private Scene choiceScene;
     private Scene gameScene;
     private ServerAPI server;
+    private String serverAddr;
     private OczkoGame game;
     private OczkoGameClientImpl callbackClient;
     private int clientID;
@@ -282,7 +283,7 @@ public class ClientApp extends Application {
 
     public void startGame(int roomID) throws IOException, NotBoundException {
 
-        game = (OczkoGame) Naming.lookup("rmi://localhost:1900/game/" + roomID);
+        game = (OczkoGame) Naming.lookup(serverAddr + "/game/" + roomID);
         callbackClient = new OczkoGameClientImpl((dto) -> {
             try {
                 onMyTurn(dto);
@@ -324,7 +325,7 @@ public class ClientApp extends Application {
             availableHands.addAll(List.of(leftHand, topHand, rightHand));
         }
 
-//        disableButtons();
+        disableButtons();
 
     }
 
@@ -414,8 +415,9 @@ public class ClientApp extends Application {
 
     }
 
-    public void setServer(ServerAPI server) {
+    public void setServer(ServerAPI server, String addr) {
         this.server = server;
+        this.serverAddr = addr;
     }
 
     public void startRoomSelect() throws IOException {
