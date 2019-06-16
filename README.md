@@ -1,6 +1,7 @@
 **Projekt PO – wersja druga**
 
 W pierwszej kolejności należy uruchomić serwer - server.GameServer
+
 Potem możemy uruchamiać tyle klientów ile chcemy - client.ClientApp, każdy będzie odpowaidał za jednego gracza.
 
 **Oczko**
